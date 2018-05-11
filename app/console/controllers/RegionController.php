@@ -15,8 +15,12 @@ class RegionController extends Controller
         $html = new simple_html_dom();
         $html->load_file('http://dom.mingkh.ru/');
 
-        $ret = $html->find('.row');
+        $ul = $html->find('.row')[3];
+        var_dump($ul->plaintext);die;
+        foreach ($ul->find('li') as $li) {
+            var_dump($li->plaintext);
+        }
 
-        var_dump($ret);die;
+//        var_dump($ret);die;
     }
 }
