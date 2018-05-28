@@ -26,7 +26,9 @@
         "yiisoft/yii2-imagine": "~2.0.0",
         "moonlandsoft/yii2-phpexcel": "*",
         "phayes/geophp": "*",
-        "nickcv/yii2-encrypter": "*"
+        "nickcv/yii2-encrypter": "*",
+        "yiisoft/yii2-httpclient": "*",
+        "symfony/dom-crawler": "^3.4"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

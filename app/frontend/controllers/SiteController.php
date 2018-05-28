@@ -43,6 +43,8 @@ class SiteController extends Controller
     }
 
     public function actionIndex () {
+        \Yii::info("Тест", 'house_parser_telegram');
+        die;
         return $this->render('index');
     }
 

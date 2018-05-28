@@ -34,6 +34,18 @@ return [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'categories' => ['house_parser'], //категория логов
+                    'logFile' => '@console/runtime/logs/house_parser.log', //куда сохранять
+                    'logVars' => []
+                ],
+                [
+                    'class' => 'common\components\loggers\TelegramTargetInfo', //в файл
+                    'categories' => ['house_parser_telegram'], //категория логов
+                    'logFile' => '@console/runtime/logs/house_parser2.log', //куда сохранять
+                    'logVars' => [] //не добавлять в лог глобальные переменные ($_SERVER, $_SESSION...)
+                ],
             ],
         ],
     ],

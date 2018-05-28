@@ -12,5 +12,13 @@ return [
         'sendgrid_api_key' => '',
         'auth_required' => true
     ],
-    'gtm_id' => ''
+    'gtm_id' => '',
+    'telegram' => [
+        'token' => '513356544:AAFJjs-esINpHvzAoPxgAlwYCgsfcUfdtXo',
+        'disable_web_page_preview' => true,
+        'parse_mode' => 'MARKDOWN',
+        'chat_ids' => [
+            -316705612
+        ],
+    ],
 ];
