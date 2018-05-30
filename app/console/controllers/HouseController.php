@@ -2,6 +2,7 @@
 
 namespace console\controllers;
 
+use common\models\Home;
 use common\models\House;
 use common\models\Region;
 use console\models\HouseApi;
@@ -105,5 +106,56 @@ class HouseController extends Controller
 
         echo 'Completed';
         return;
+    }
+
+    public function actionImport($params)
+    {
+        $id = intval($params);
+
+        $files = scandir(__DIR__.'/homes');
+        for ($indexFile = $id; $indexFile < count($files); $indexFile++) {
+            $file = file(__DIR__ . '/homes/'.$files[$indexFile]);
+            $keys = [];
+            $region_id = null;
+            foreach ($file as $index => $item) {
+                if ($index == 0) {
+                    $keys = str_getcsv($item, ';');
+                } else {
+                    $line = str_getcsv($item, ';');
+                    if (count($keys) != count($line)) {
+                        echo "ERROR - " . $files[$indexFile] . PHP_EOL;
+                    } else {
+                        $record = [];
+                        foreach ($keys as $i => $key) {
+                            $record[$key] = $line[$i];
+                        }
+
+                        if (!empty($region_id)) {
+                            $model = new Home();
+                            $model->identifier = array_values($record)[0];
+                            unset($record['id']);
+                            $model->attributes = $record;
+                            $model->updated_at = time();
+                            $model->region_id = $region_id;
+                            try {
+                                if (!$model->save()) {
+                                    echo "SAVE ERROR - " . $files[$indexFile] . PHP_EOL;
+                                }
+                            } catch (\Exception $e) {
+                                    echo "SAVE ERROR2 - " . $files[$indexFile] . PHP_EOL;
+                            }
+                        } else {
+                            $region_name = $record['formalname_region'];
+                            $region = \common\entities\Region::find()->where(['like', 'name', $region_name])->one();
+                            $region_id = $region->id;
+                        }
+
+                    }
+                }
+            }
+
+            echo $files[$indexFile].'['.$indexFile.'/'.count($files).'] - SUCCESS'.PHP_EOL;
+        }
+
     }
 }

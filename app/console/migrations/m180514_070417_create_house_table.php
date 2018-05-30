@@ -46,10 +46,10 @@ class m180514_070417_create_house_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropForeignKey('house-address', 'house');
-        $this->dropForeignKey('house-emergency', 'house');
-        $this->dropForeignKey('house-url', 'house');
-        $this->dropForeignKey('house-cadastral_number', 'house');
+        $this->dropIndex('house-address', 'house');
+        $this->dropIndex('house-emergency', 'house');
+        $this->dropIndex('house-url', 'house');
+        $this->dropIndex('house-cadastral_number', 'house');
 
         $this->dropForeignKey('house-region', 'house');
         $this->dropIndex('house-region_id', 'house');
